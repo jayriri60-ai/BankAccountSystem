@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.19)
 project(BankAccountSystem LANGUAGES CXX)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets LinguistTools)
+# 🖨️ Ajout du composant PrintSupport dans find_package
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets PrintSupport LinguistTools)
 
 qt_standard_project_setup()
 
@@ -21,10 +22,12 @@ qt_add_translations(
     TS_FILES BankAccountSystem_en_BI.ts
 )
 
+# 🖨️ Liaison de la bibliothèque Qt::PrintSupport
 target_link_libraries(BankAccountSystem
     PRIVATE
         Qt::Core
         Qt::Widgets
+        Qt::PrintSupport
 )
 
 install(TARGETS BankAccountSystem

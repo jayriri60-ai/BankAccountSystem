@@ -10,7 +10,7 @@ CreateAccountDialog::CreateAccountDialog(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle("Créer un nouveau compte bancaire");
 
-    // Connexion des boutons aux slots de validation/annulation
+    // Connexion des boutons aux slots de validation/annulation (Vos noms exacts de composants)
     connect(ui->btnCreate, &QPushButton::clicked, this, &CreateAccountDialog::onCreateClicked);
     connect(ui->btnCancel, &QPushButton::clicked, this, &CreateAccountDialog::onCancelClicked);
 }
@@ -31,7 +31,10 @@ void CreateAccountDialog::onCreateClicked()
     QString accountType = ui->typeComboBox->currentText();
     QString depositStr = ui->depositLineEdit->text().trimmed();
 
-    // 2. Validation exigée par le cahier des charges (Part 5)
+    // 🔑 Récupération du Code PIN (assurez-vous d'avoir nomme le champ pinLineEdit dans Qt Designer)
+    QString pinText = ui->pinLineEdit->text().trimmed();
+
+    // 2. Validation exigée par le cahier des charges
 
     // Règle 1 : Le nom ne doit pas être vide
     if (name.isEmpty()) {
@@ -55,8 +58,16 @@ void CreateAccountDialog::onCreateClicked()
         return;
     }
 
-    // 3. Tout est valide ! On crée l'objet BankAccount
-    createdAccount.createAccount(name, accNum, accountType, initialDeposit);
+    // 🔑 Règle 4 : Le code PIN doit comporter exactement 4 chiffres
+    bool okPin = false;
+    pinText.toInt(&okPin);
+    if (pinText.length() != 4 || !okPin) {
+        QMessageBox::warning(this, "Erreur PIN", "Le code PIN doit comporter exactement 4 chiffres (ex: 1234) !");
+        return;
+    }
+
+    // 3. Tout est valide ! On crée l'objet BankAccount avec son PIN
+    createdAccount.createAccount(name, accNum, accountType, initialDeposit, pinText);
 
     // 4. Message de confirmation
     QMessageBox::information(this, "Succès", "Le compte a été créé avec succès !");

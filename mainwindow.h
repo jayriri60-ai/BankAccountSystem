@@ -27,6 +27,10 @@ private slots:
     void onDisplayDetails();
     void onReset();
     void onExit();
+    void onShowHistory();
+    void onCalculateInterest();
+    void onConvertCurrency();
+    void onPrintStatement();
 
 private:
     Ui::MainWindow *ui;
@@ -40,6 +44,11 @@ private:
     // Fonctions utilitaires
     int findAccountIndex(int accNum) const;
     void updateAccountDisplay();
+
+    // 💾 Méthodes de Gestion de Fichier (File I/O)
+    void saveAccountsToFile();
+    void loadAccountsFromFile();
+    bool authenticateUser();
 };
 
 #endif // MAINWINDOW_H

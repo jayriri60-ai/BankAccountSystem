@@ -1,9 +1,15 @@
+# Dossiers de build CMake / Qt Creator
 build/
 build-*/
 *.user
 *.user.*
 .qtc_settings/
+
+# Fichiers binaires et compilés
 *.o
 *.obj
 *.exe
-*.autosave
+*.dll
+*.so
+*.dylib
+*.a
