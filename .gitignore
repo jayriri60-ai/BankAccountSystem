@@ -1,0 +1,9 @@
+build/
+build-*/
+*.user
+*.user.*
+.qtc_settings/
+*.o
+*.obj
+*.exe
+*.autosave
